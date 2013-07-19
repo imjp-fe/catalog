@@ -1,0 +1,51 @@
+ul{
+  margin: 0;
+  list-style: none;
+}
+.container h1{
+  margin-top: 200px;
+  text-align: center;
+}
+#search{
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 100px;
+}
+#search input{
+  display: block;
+  width: 100%;
+  border-radius: 0;
+}
+#search ul{
+  background: #fff;
+  padding: 0 6px;
+  position: absolute;
+  width: 100%;
+  top: 29px;
+  left: 0;
+  border: 1px solid #ccc;
+  text-align: left;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+}
+#search ul li{
+  padding: 2px 0;
+}
+.category{
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+.category h2{
+  font-size: 18px;
+  font-style: italic;
+  margin: 0;
+}
+.category ul{
+  margin-left: 10px;
+}
+.category li a{
+  display: block;
+  background: url(../images/bullet.gif) no-repeat 0 .5em;
+  padding-left: 10px;
+}
