@@ -14,25 +14,57 @@
 
     url: '/data.json',
 
-    initialize: function(){
-      //console.log(this.models);
-    },
-
     getByWord: function(word){
+      var objects = [],
+          words = [],
+          scope = ['summary', 'title', 'creator', 'tags', 'device', 'browser'],
+          noIncludeWords = ['summary'],
+          caches = [],
+          word = word.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
+          reg = new RegExp('\\s*?' + word + '\\s*?');
 
-      var res = '';
+      var isDuplicate = function(str){
+        for(var i = 0, l = words.length; i < l; i++){
+          if(str.toLowerCase() == words[i].toLowerCase()){
+            return true;
+          }
+        }
+        return false;
+      };
 
-      var list = this.where({"man-hour": 160}),
-          _list = [];
+      var isIncludeWords = function(str) {
+        for(var i = 0, l = noIncludeWords.length; i < l; i++){
+          if(str.toLowerCase() == noIncludeWords[i].toLowerCase()){
+            return false;
+          }
+        }
+        return true;
+      }
 
-      list.forEach(function (el, i) {
-        _list[i] = el.toJSON();
-      });
+      var add = function(key, word, model) {
+        if (reg.test(word.toLowerCase())) {          
+          if (!isDuplicate(word) && isIncludeWords(key)) words.push(word);
+          objects.push(model.toJSON());
+        }
+      }
+
+      for (var i = 0, l = this.models.length; i < l; i++) {
+        var pick = this.models[i].pick(scope);
+        for (key in pick) {
+          if (_.isArray(pick[key])) {
+            for (var j = 0, k = pick[key].length; j < k; j++) {
+              add(key, pick[key][j], this.models[i]);
+            }
+            continue;
+          }
+          if (_.isString(pick[key])) {
+            add(key, pick[key], this.models[i]);
+            continue;
+          }
+        }
+      };
       
-      console.log(_.pluck(_list, 'man-hour'));
-      
-      return res;
-      
+      return { objects: objects, words: words };
     },
 
     getByCategory: function(categoryName){
@@ -42,6 +74,19 @@
       console.log(this.models);
 
       return res;
+
+      // var res = '';
+
+      // var list = this.where({"man-hour": 160}),
+      //     _list = [];
+
+      // list.forEach(function (el, i) {
+      //   _list[i] = el.toJSON();
+      // });
+      
+      // console.log(_.pluck(_list, 'man-hour'));
+      
+      // return res;
 
     },
 
@@ -66,31 +111,33 @@
     },
 
     getRecent: function(limit) {
-      var objects = [];
-      for (var i = 0; i < limit; i++) {
-        objects[i] = this.models[i].toJSON();
-      };
+      var objects = [],
+          sotred = _(this.models).sortBy(function (object) {
+            return Date.parse(object.toJSON().create_date);
+          });
+      sotred = sotred.slice(0, limit);
+      _.each(sotred, function (el, i) {
+        objects[i] = el.toJSON();
+      });
       return objects;
     },
 
     getDeviceList: function(){
-
-      var res = '';
-
-      console.log(this.models);
-
-      return res;
-
+      var objects = [];
+      _.each(this.models, function (el, i) {
+        objects[i] = el.toJSON().device;
+      });
+      objects = _.uniq(objects);
+      return objects;
     },
 
     getCategoryList: function(){
-
-      var res = '';
-
-      console.log(this.models);
-
-      return res;
-
+      var objects = [];
+      _.each(this.models, function (el, i) {
+        objects[i] = el.toJSON().tags;
+      });
+      objects = _.union(objects[0]);
+      return objects;
     }
 
   });
@@ -101,12 +148,16 @@
   collection.fetch().done(function (res) {
     //console.log(res);
     //console.log(collection.models);
-    // console.log(collection.getByWord());
+    
+    
+    // console.log(collection.getByWord('アプリ'));
     // console.log(collection.getByCategory());
 
 
     console.log(collection.getByDevice('sp'));
-    // console.log(collection.getRecent(4));
+    console.log(collection.getRecent(3));
+    console.log(collection.getDeviceList());
+    console.log(collection.getCategoryList());
     
   });
 
