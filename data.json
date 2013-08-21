@@ -1,19 +1,47 @@
-{
-	"items":[
-		{
-			"URL":"http://hogehoge.com",
-			"title":"塩ラーメン",
-			"summary":"さっぱり生麺タイプ",
-			"creator":"Hoge",
-			"email":"hoge@hoge.com",
-			"version":"0.1",
-			"create date":"2002-09-24+09:00",
-			"update date":"2002-10-24+09:00",
-			"license":"",
-			"tags":["hoge","poop"],
-			"device":["PC", "iPhone"],
-			"Browser":["Chrome", "Firefox"],
-			"man-hour":34
-		}
-	]
-}
+[
+  {
+    "URL": "http://tk-ota.github.io/sideNavigation/",
+    "title": "Facebook App UI",
+    "summary": "JavaScriptでFacebookアプリのようなUIを再現できるプラグイン",
+    "creator": "太田智彬",
+    "email": "hoge@hoge.com",
+    "version": "1.0",
+    "create date": "Tue Jul 9 11:41:41 2013 +0900",
+    "update date": "",
+    "license": "MIT license",
+    "tags": ["JavaScript", "スマートフォン"],
+    "device": ["iPhone", "Android 2.3"],
+    "Browser": ["Browser", "Chrome"],
+    "man-hour": 60
+  },
+  {
+    "URL": "http://tk-ota.github.io/sideNavigation/",
+    "title": "Facebook App UI",
+    "summary": "JavaScriptでFacebookアプリのようなUIを再現できるプラグイン",
+    "creator": "太田智彬",
+    "email": "hoge@hoge.com",
+    "version": "1.0",
+    "create date": "Tue Jul 9 11:41:41 2013 +0900",
+    "update date": "",
+    "license": "MIT license",
+    "tags": ["JavaScript", "スマートフォン"],
+    "device": ["iPhone", "Android 2.3"],
+    "Browser": ["Browser", "Chrome"],
+    "man-hour": 160
+  },
+  {
+    "URL": "http://tk-ota.github.io/sideNavigation/",
+    "title": "Facebook App UI",
+    "summary": "JavaScriptでFacebookアプリのようなUIを再現できるプラグイン",
+    "creator": "太田智彬",
+    "email": "hoge@hoge.com",
+    "version": "1.0",
+    "create date": "Tue Jul 9 11:41:41 2013 +0900",
+    "update date": "",
+    "license": "MIT license",
+    "tags": ["JavaScript", "スマートフォン"],
+    "device": ["iPhone", "Android 2.3"],
+    "Browser": ["Browser", "Chrome"],
+    "man-hour": 160
+  }
+]
