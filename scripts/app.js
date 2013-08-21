@@ -188,7 +188,7 @@
     },
     render: function(items, ul){
       var $templateString = $('#categoryTemplate').html();
-      var list = _.template($templateString, {obj:items});
+      var list = _.template($templateString, {obj:items}); // 配列items ⇒ オブジェクトの形にして _.templateに渡す
       ul.append(list);
     }
   });
