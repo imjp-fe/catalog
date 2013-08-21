@@ -18,7 +18,6 @@
           words = [],
           scope = ['summary', 'title', 'creator', 'tags', 'device', 'browser'],
           noIncludeWords = ['summary'],
-          caches = [],
           word = word.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
           reg = new RegExp('\\s*?' + word + '\\s*?');
 
@@ -40,9 +39,9 @@
         return true;
       }
 
-      var add = function(key, word, model) {
-        if (reg.test(word.toLowerCase())) {          
-          if (!isDuplicate(word) && isIncludeWords(key)) words.push(word);
+      var add = function(key, value, model) {
+        if (reg.test(value.toLowerCase())) {          
+          if (!isDuplicate(value) && isIncludeWords(key)) words.push(value);
           objects.push(model.toJSON());
         }
       }
@@ -67,26 +66,21 @@
     },
 
     getByCategory: function(categoryName){
+      var objects = [],
+          categoryName = categoryName.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
+          reg = new RegExp('^\\s*?' + categoryName + '\\s*?$');
 
-      var res = '';
+      for (var i = 0, l = this.models.length; i < l; i++) {
+        var pick = this.models[i].get('tags');
+        for (var j = 0, k = pick.length; j < k; j++) {
+          if (reg.test(pick[j].toLowerCase())) {
+            objects.push(this.models[i].toJSON());
+            break;
+          }
+        }
+      };
 
-      console.log(this.models);
-
-      return res;
-
-      // var res = '';
-
-      // var list = this.where({"man-hour": 160}),
-      //     _list = [];
-
-      // list.forEach(function (el, i) {
-      //   _list[i] = el.toJSON();
-      // });
-      
-      // console.log(_.pluck(_list, 'man-hour'));
-      
-      // return res;
-
+      return objects;
     },
 
     getByDevice: function(device) {
@@ -150,8 +144,7 @@
     
     
     // console.log(collection.getByWord('アプリ'));
-    // console.log(collection.getByCategory());
-
+    // console.log(collection.getByCategory('javascript'));
 
     console.log(collection.getByDevice('sp'));
     console.log(collection.getRecent(3));
