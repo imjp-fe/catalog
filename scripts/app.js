@@ -1,7 +1,5 @@
 ;(function (window, document, $, Backbone, _, undefined) {
 
-  // some code ..
-
   var Model = Backbone.Model.extend({
 
     initialize: function(){
@@ -24,7 +22,6 @@
 
       var res = '';
 
-      
       var list = this.where({"man-hour": 160}),
           _list = [];
 
@@ -52,20 +49,20 @@
 
       var res = '';
 
-      console.log(this.models);
+      var list = this.where({"device": 'sp'});
+
+      console.log(list);
 
       return res;
 
     },
 
     getRecent: function(limit) {
-
-      var res = '';
-
-      console.log(this.models);
-
-      return res;
-
+      var objects = [];
+      for (var i = 0; i < limit; i++) {
+        objects[i] = this.models[i].toJSON();
+      };
+      return objects;
     },
 
     getDeviceList: function(){
@@ -96,13 +93,11 @@
   collection.fetch().done(function (res) {
     //console.log(res);
     //console.log(collection.models);
-    console.log(collection.getByWord());
-    
+    // console.log(collection.getByWord());
     // console.log(collection.getByCategory());
-    // console.log(collection.getByDevice());
-    // console.log(collection.getRecent());
-    // console.log(collection.getDeviceList());
-    // console.log(collection.getCategoryList());
+    console.log(collection.getByDevice('sp'));
+    // console.log(collection.getRecent(4));
+    
   });
 
 
