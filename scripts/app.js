@@ -52,7 +52,7 @@
             prop = object.device;
         if (_.isArray(prop)) {              // if prop is "Array"
           _.each(prop, function (val, j) {
-            if (prop === device) {
+            if (val === device) {
               objects.push(object);
             }
           });
@@ -109,16 +109,6 @@
     // console.log(collection.getRecent(4));
     
   });
-
-
-
-
-
-
-
-
-
-
 
 
 
