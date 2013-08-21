@@ -143,8 +143,8 @@
     //console.log(collection.models);
     
     
-    // console.log(collection.getByWord('アプリ'));
-    // console.log(collection.getByCategory('javascript'));
+    console.log(collection.getByWord('アプリ'));
+    console.log(collection.getByCategory('javascript'));
 
     console.log(collection.getByDevice('sp'));
     console.log(collection.getRecent(3));
