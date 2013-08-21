@@ -173,22 +173,23 @@
 
     },
     initialize: function(){
-      var devices = collection.getDeviceList();
+      this.renderTags();
+      this.renderDevice();
+    },
+    renderTags: function(){
       var tags = collection.getCategoryList();
-      this.renderDevice(devices);
-      this.renderTags(tags);
+      var ul = $('#tags ul');
+      this.render(tags, ul);
     },
-    renderDevice: function(devices){
-      $.each(devices, function(i){
-        var $deviceList = $('.device ul');
-        $deviceList.append('<li><a href="/device/' + devices[i] + '">' + devices[i] + '</a></li>');
-      });
+    renderDevice: function(){
+      var devices = collection.getDeviceList();
+      var ul = $('#devices ul');
+      this.render(devices, ul);
     },
-    renderTags: function(tags){
-      $.each(tags, function(i){
-        var $tagList = $('.tags ul');
-        $tagList.append('<li><a href="/tag/' + tags[i] + '">' + tags[i] + '</a></li>');
-      });
+    render: function(items, ul){
+      var $templateString = $('#categoryTemplate').html();
+      var list = _.template($templateString, {obj:items});
+      ul.append(list);
     }
   });
 
@@ -224,10 +225,8 @@
       this.render(itemDevice, ul);
     },
     render: function(items, ul){
-      var tpl = '<% _.each(obj, function(i){ %>\
-        <li><a href="<%= i.URL %>"><img src="<%= i.thumb %>" alt=""><span class="title"><%= i.title %></span><span class="summary"><%= i.summary %></span></a></li>\
-        <% }); %>';
-      var list = _.template(tpl, {obj:items}); // 配列items ⇒ オブジェクトの形にして _.templateに渡す
+      var $templateString = $('#resultTemplate').html();
+      var list = _.template($templateString, {obj:items});
       ul.append(list);
     }
   });

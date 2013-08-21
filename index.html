@@ -43,29 +43,35 @@
         </ul>
       </div>
 
-      <div class="category tags">
+      <div class="category" id="tags">
         <h2>Category</h2>
         <ul>
-          <!-- <li><a href="#">ajax</a></li>
-          <li><a href="#">animation</a></li> -->
+          <script type="text/template" id="categoryTemplate">
+          <% _.each(obj, function(i){ %>
+          <li><a href="/device/<%= i %>"><%= i %></a></li>
+          <% }); %>
+          </script>
         </ul>
       </div>
 
-      <div class="category device">
+      <div class="category" id="devices">
         <h2>Device</h2>
         <ul>
-          <!-- <li><a href="#">PC</a></li>
-          <li><a href="#">Smart Phone</a></li>
-          <li><a href="#">tablet</a></li> -->
         </ul>
       </div>
+
 
       <div class="category result" id="recentList">
         <h2>New arrived</h2>
         <ul>
-        <li><a href="#"><img src="/images/img_thumb.gif" alt=""><span class="title">タイトル</span><span class="summary">サマリー</span></a></li>
+          <script type="text/template" id="resultTemplate">
+          <% _.each(obj, function(i){ %>
+          <li><a href="<%= i.URL %>"><img src="<%= i.thumb %>" alt=""><span class="title"><%= i.title %></span><span class="summary"><%= i.summary %></span></a></li>
+          <% }); %>
+          </script>
         </ul>
       </div>
+
 
       <div class="category result" id="wordList">
         <h2>List by Word</h2>
