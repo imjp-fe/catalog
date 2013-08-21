@@ -6,6 +6,8 @@ ul{
   margin-top: 200px;
   text-align: center;
 }
+/* #search
+-------------------------------*/
 #search{
   position: relative;
   width: 100%;
@@ -31,6 +33,9 @@ ul{
 #search ul li{
   padding: 2px 0;
 }
+
+/* .category
+-------------------------------*/
 .category{
   width: 100%;
   max-width: 600px;
@@ -46,6 +51,31 @@ ul{
 }
 .category li a{
   display: block;
+  overflow: hidden;
   background: url(../images/bullet.gif) no-repeat 0 .5em;
   padding-left: 10px;
+}
+.category.result li{
+  margin-bottom: 15px;
+}
+.category.result li img{
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+.category.result li span{
+  display: block;
+  overflow: hidden;
+}
+.category.result li .title{
+  font-weight: bold;
+}
+.category.result li .summary{
+  color: #333;
+}
+.category.result li a{
+  text-decoration: none;
+}
+.category.result li a:hover .title{
+  text-decoration: underline;
 }
