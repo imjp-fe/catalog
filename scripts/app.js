@@ -46,15 +46,23 @@
     },
 
     getByDevice: function(device) {
-
-      var res = '';
-
-      var list = this.where({"device": 'sp'});
-
-      console.log(list);
-
-      return res;
-
+      var objects = [];
+      _.each(this.models, function (el, i) {
+        var object = el.toJSON(),
+            prop = object.device;
+        if (_.isArray(prop)) {              // if prop is "Array"
+          _.each(prop, function (val, j) {
+            if (prop === device) {
+              objects.push(object);
+            }
+          });
+        } else {                            // if prop is "string"
+          if (prop === device) {
+            objects.push(object);
+          }
+        }
+      });
+      return objects;
     },
 
     getRecent: function(limit) {
@@ -95,6 +103,8 @@
     //console.log(collection.models);
     // console.log(collection.getByWord());
     // console.log(collection.getByCategory());
+
+
     console.log(collection.getByDevice('sp'));
     // console.log(collection.getRecent(4));
     

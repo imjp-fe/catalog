@@ -40,7 +40,7 @@
     "update date": "",
     "license": "MIT license",
     "tags": ["JavaScript", "スマートフォン"],
-    "device": "sp",
+    "device": ["iPhone", "Android 2.3"],
     "Browser": ["Browser", "Chrome"],
     "man-hour": 160
   },
@@ -55,7 +55,7 @@
     "update date": "",
     "license": "MIT license",
     "tags": ["JavaScript", "スマートフォン"],
-    "device": "sp",
+    "device": ["iPhone", "Android 2.3"],
     "Browser": ["Browser", "Chrome"],
     "man-hour": 160
   },
@@ -70,7 +70,7 @@
     "update date": "",
     "license": "MIT license",
     "tags": ["JavaScript", "スマートフォン"],
-    "device": "sp",
+    "device": ["iPhone", "Android 2.3"],
     "Browser": ["Browser", "Chrome"],
     "man-hour": 160
   },
@@ -85,7 +85,7 @@
     "update date": "",
     "license": "MIT license",
     "tags": ["JavaScript", "スマートフォン"],
-    "device": "sp",
+    "device": ["iPhone", "Android 2.3"],
     "Browser": ["Browser", "Chrome"],
     "man-hour": 160
   }
