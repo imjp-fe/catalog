@@ -1,6 +1,6 @@
 ;(function (window, document, $, Backbone, _, undefined) {
 
-  
+  ////// MODEL  
   var Model = Backbone.Model.extend({
     initialize: function(){
 
@@ -137,22 +137,23 @@
 
   var collection = new Collection();
 
-
   collection.fetch().done(function (res) {
-    //console.log(res);
-    //console.log(collection.models);
-    
-    
-    console.log(collection.getByWord('アプリ'));
+    console.log('インクリメンタルサーチ');
+    console.log(collection.getByWord('java'));
+    console.log('各カテゴリ一覧');
     console.log(collection.getByCategory('javascript'));
-
+    console.log('各デバイス一覧');
     console.log(collection.getByDevice('sp'));
-    console.log(collection.getRecent(3));
+    console.log('最新X件');
+    console.log(collection.getRecent(2));
+    console.log('デバイスリスト');
     console.log(collection.getDeviceList());
+    console.log('カテゴリリスト');
     console.log(collection.getCategoryList());
-    
   });
+  
 
+  ////// VIEW
 
   var IndexPageView = Backbone.View.extend({
     events: {
@@ -250,6 +251,10 @@
     }
   });
 
+
+
+
+  ////// YASU
   var Router = Backbone.Router.extend({
     routes: {
       "/": "index",
