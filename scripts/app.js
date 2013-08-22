@@ -1,6 +1,6 @@
 ;(function (window, document, $, Backbone, _, undefined) {
 
-  ////// MODEL  
+  ////// MODEL
   var Model = Backbone.Model.extend({
     initialize: function(){
 
@@ -40,7 +40,7 @@
       }
 
       var add = function(key, value, model) {
-        if (reg.test(value.toLowerCase())) {          
+        if (reg.test(value.toLowerCase())) {
           if (!isDuplicate(value) && isIncludeWords(key)) words.push(value);
           objects.push(model.toJSON());
         }
@@ -61,7 +61,7 @@
           }
         }
       };
-      
+
       return { objects: objects, words: words };
     },
 
@@ -137,21 +137,21 @@
 
   var collection = new Collection();
 
-  collection.fetch().done(function (res) {
-    console.log('インクリメンタルサーチ');
-    console.log(collection.getByWord('java'));
-    console.log('各カテゴリ一覧');
-    console.log(collection.getByCategory('javascript'));
-    console.log('各デバイス一覧');
-    console.log(collection.getByDevice('sp'));
-    console.log('最新X件');
-    console.log(collection.getRecent(2));
-    console.log('デバイスリスト');
-    console.log(collection.getDeviceList());
-    console.log('カテゴリリスト');
-    console.log(collection.getCategoryList());
-  });
-  
+  // collection.fetch().done(function (res) {
+  //   console.log('インクリメンタルサーチ');
+  //   console.log(collection.getByWord('java'));
+  //   console.log('各カテゴリ一覧');
+  //   console.log(collection.getByCategory('javascript'));
+  //   console.log('各デバイス一覧');
+  //   console.log(collection.getByDevice('sp'));
+  //   console.log('最新X件');
+  //   console.log(collection.getRecent(2));
+  //   console.log('デバイスリスト');
+  //   console.log(collection.getDeviceList());
+  //   console.log('カテゴリリスト');
+  //   console.log(collection.getCategoryList());
+  // });
+
 
   ////// VIEW
 
@@ -193,17 +193,19 @@
 
     },
     initialize: function(){
-      this.renderTags();
-      this.renderDevice();
+      this.listenTo(collection, 'sync', function(){
+        this.renderTagsList();
+        this.renderDeviceList();
+      });
     },
-    renderTags: function(){
+    renderTagsList: function(){
       var tags = collection.getCategoryList();
-      var ul = $('#tags ul');
+      var ul = $('#tagsList ul');
       this.render(tags, ul);
     },
-    renderDevice: function(){
+    renderDeviceList: function(){
       var devices = collection.getDeviceList();
-      var ul = $('#devices ul');
+      var ul = $('#deviceList ul');
       this.render(devices, ul);
     },
     render: function(items, ul){
@@ -218,30 +220,33 @@
     events: {
 
     },
+    //
     initialize: function(){
-      this.renderRecent();
-      this.renderWord();
-      this.renderCategory();
-      this.renderDevice();
+      this.listenTo(collection, 'sync', function(){
+        this.renderRecent(5);
+        this.renderWord();
+        this.renderCategory();
+        this.renderDevice();
+      });
     },
-    renderRecent: function(){
-      var itemRecent = collection.getRecent();
+    renderRecent: function(limit){
+      var itemRecent = collection.getRecent(limit);
       var ul = $('#recentList ul');
       this.render(itemRecent, ul);
     },
-    renderWord: function(){
-      var itemWord = collection.getByWord();
-      var ul = $('#wordList ul');
+    renderWord: function(word){
+      var itemWord = collection.getByWord(word);
+      var ul = $('#byWord ul');
       this.render(itemWord, ul);
     },
-    renderCategory: function(){
-      var itemCategory = collection.getByCategory();
-      var ul = $('#categoryList ul');
+    renderCategory: function(categoryName){
+      var itemCategory = collection.getByCategory(categoryName);
+      var ul = $('#byCategory ul');
       this.render(itemCategory, ul);
     },
-    renderDevice: function(){
-      var itemDevice = collection.getByDevice();
-      var ul = $('#deviceList ul');
+    renderDevice: function(device){
+      var itemDevice = collection.getByDevice(device);
+      var ul = $('#byDevice ul');
       this.render(itemDevice, ul);
     },
     render: function(items, ul){
@@ -271,9 +276,10 @@
   });
 
 
-  // var collection = new Collection();
-  // var categoryListView = new CategoryListView();
-  // var resultView = new ResultView();
+  var collection = new Collection();
+  collection.fetch();
+  var categoryListView = new CategoryListView();
+  var resultView = new ResultView();
 
 
 })(window, document, jQuery, Backbone, _);
