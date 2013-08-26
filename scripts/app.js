@@ -4,7 +4,7 @@
   var Model = Backbone.Model.extend({
     initialize: function(){
 
-    },
+    }
   });
 
   var Collection = Backbone.Collection.extend({
@@ -18,7 +18,7 @@
           words = [],
           scope = ['summary', 'title', 'creator', 'tags', 'device', 'browser'],
           noIncludeWords = ['summary'],
-          //word = word.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
+          word = (!word) ? word : word.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
           reg = new RegExp('\\s*?' + word + '\\s*?');
 
       var isDuplicate = function(str){
@@ -67,7 +67,7 @@
 
     getByCategory: function(categoryName){
       var objects = [],
-          //categoryName = categoryName.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
+          categoryName = (!categoryName) ? categoryName : categoryName.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
           reg = new RegExp('^\\s*?' + categoryName + '\\s*?$');
 
       for (var i = 0, l = this.models.length; i < l; i++) {
@@ -274,7 +274,7 @@
   ////// YASU
   var Router = Backbone.Router.extend({
     routes: {
-      "/": "index",
+      "": "index",
       "list": "list",
       "device/*query": "device"
       //"/list/device_:device": "device",
