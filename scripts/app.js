@@ -164,6 +164,11 @@
 
     },
 
+    enter: function(){},
+
+    leave: function(){}
+
+
   });
 
   var ListPageView = Backbone.View.extend({
@@ -257,6 +262,8 @@
   });
 
 
+  var indexPage = new IndexPageView();
+  var listPage = new ListPageView();
 
 
   ////// YASU
@@ -267,11 +274,22 @@
       "/list/device_:device": "device",
     },
 
-    index: function(){},
+    index: function(){
+      indexPage.enter();
+      this.prev = indexPage;
+    },
 
-    list: function(){},
+    list: function(){
+      if(this.prev) this.prev.leave();
+      listPage.enter();
+      this.prev = listPage;
+    },
 
-    device: function(device){}
+    device: function(device){
+      if(this.prev) this.prev.leave();
+      listPage.enter( device );
+      this.prev = listPage;
+    }
 
   });
 
