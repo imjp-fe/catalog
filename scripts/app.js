@@ -18,7 +18,7 @@
           words = [],
           scope = ['summary', 'title', 'creator', 'tags', 'device', 'browser'],
           noIncludeWords = ['summary'],
-          word = word.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
+          //word = word.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
           reg = new RegExp('\\s*?' + word + '\\s*?');
 
       var isDuplicate = function(str){
@@ -67,7 +67,7 @@
 
     getByCategory: function(categoryName){
       var objects = [],
-          categoryName = categoryName.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
+          //categoryName = categoryName.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
           reg = new RegExp('^\\s*?' + categoryName + '\\s*?$');
 
       for (var i = 0, l = this.models.length; i < l; i++) {
@@ -195,7 +195,7 @@
 
   var CategoryListView = Backbone.View.extend({
     events: {
-
+        'click a': 'showCategory'
     },
     initialize: function(){
       this.listenTo(collection, 'sync', function(){
@@ -217,6 +217,11 @@
       var $templateString = $('#categoryTemplate').html();
       var list = _.template($templateString, {obj:items}); // 配列items ⇒ オブジェクトの形にして _.templateに渡す
       ul.append(list);
+    },
+    showCategory: function(e) {
+      var url = e.target.getAttribute('href');
+      router.navigate(url, { trigger: true });
+      return false;
     }
   });
 
@@ -270,8 +275,9 @@
   var Router = Backbone.Router.extend({
     routes: {
       "/": "index",
-      "/list": "list",
-      "/list/device_:device": "device",
+      "list": "list",
+      "device/*query": "device"
+      //"/list/device_:device": "device",
     },
 
     index: function(){
@@ -293,11 +299,13 @@
 
   });
 
-
   var collection = new Collection();
   collection.fetch();
-  var categoryListView = new CategoryListView();
+  var categoryListView = new CategoryListView({ el: $('#categoryList') });
   var resultView = new ResultView();
+  var router = new Router();
+  Backbone.history.start({ pushState: true });
+
 
 
 })(window, document, jQuery, Backbone, _);
