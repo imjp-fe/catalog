@@ -36,11 +36,12 @@
       <h1><img src="images/logo.png" alt="" width="397" height="92" /></h1>
       <div id="search">
         <input type="text" />
-        <ul>
-          <li><a href="#">ajax</a></li>
-          <li><a href="#">animation</a></li>
-          <li><a href="#">ajax</a></li>
-        </ul>
+        <script type="text/template" id="searchCandidateTemplate">
+        <% _.each(objects, function(i){ %>
+          <li><a href="<%= i.URL %>"><%= i.title %></a></li>
+        <% }); %>
+        </script>
+        <ul></ul>
       </div>
 
       <div id="categoryList">

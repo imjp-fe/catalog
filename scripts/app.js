@@ -183,15 +183,27 @@
   });
 
   var SearchView = Backbone.View.extend({
+    el: "#search",
     events: {
-
+      "keyup input": "onKey"
     },
 
-    initialize: function(){
+    initialize: function(){},
 
+    onKey: function(e) {
+      var val = this.$("input").val(),
+          tmpl = this.$("#searchCandidateTemplate").text(),
+          result = collection.getByWord(val),
+          str = _.template( tmpl, result );
+      
+      //console.log(this.$("input").val(), result.objects);
+
+      if(!val || val == "") str = "";
+      this.$("ul").html(str);
     }
-
   });
+
+  new SearchView();
 
   var CategoryListView = Backbone.View.extend({
     events: {
