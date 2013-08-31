@@ -172,68 +172,71 @@
 
 
   ////// VIEW
-
-  var IndexPageView = Backbone.View.extend({
-    events: {
-
-    },
-
-    initialize: function () {
-
-    },
-
-    enter: function () {
-      listPage.destroy();
-      categoryListView.show();
-      resultView.show();
-    },
-
-    leave: function () {
-    }
-
-
-  });
-
   var ListPageView = Backbone.View.extend({
     events: {
 
     },
-
-    initialize: function () {
+    initialize: function (word, category) {
       this.wordTitle = $(this.el).find('#byWord h2').text();
       this.categoryTitle = $(this.el).find('#byCategory h2').text();
       this.deviceTitle = $(this.el).find('#byDevice h2').text();
     },
-
     enter: function (word, category) {
-      listPage.destroy();
-      switch (category) {
-        case 'category':
-          resultView.renderCategory(word);
-          break;
-        case 'device':
-          resultView.renderDevice(word);
-          break;
-      }
-      categoryListView.hide();
-      resultView.hide();
+      this.listenTo(this.collection, 'sync', function () {
+        this.destroy();
+        switch (category) {
+          case 'category':
+            this.renderCategory(word);
+            break;
+          case 'device':
+            this.renderDevice(word);
+            break;
+        }
+      });
     },
-
-    hide: function(name) {
+    renderWord: function (word) {
+      var itemWord = this.collection.getByWord(word);
+      var ul = $('#byWord ul');
+      this.render(itemWord, ul);
+    },
+    renderCategory: function (categoryName) {
+      var itemCategory = this.collection.getByCategory(categoryName);
+      var ul = $('#byCategory ul');
+      var h2 = $('#byCategory h2');
+      h2.text(this.categoryTitle + ' ' + categoryName);
+      this.render(itemCategory, ul);
+    },
+    renderDevice: function (deviceName) {
+      var itemDevice = this.collection.getByDevice(deviceName);
+      var ul = $('#byDevice ul');
+      var h2 = $('#byDevice h2');
+      h2.text(this.deviceTitle + ' ' + deviceName);
+      this.render(itemDevice, ul);
+    },
+    render: function (items, ul) {
+      var $templateString = $('#resultTemplate').html();
+      var list = _.template($templateString, {obj: items});
+      ul.append(list);
+    },
+    hide: function () {
       var $target = $(this.el).find('.result');
       $target.hide();
-      if(name) $('#' + name).show();
     },
-
+    show: function (name) {
+      if (name) {
+        $('#' + name).show();
+      } else {
+        var $target = $(this.el).find('.result');
+        $target.show();
+      }
+    },
     destroy: function () {
       var $target = $(this.el).find('.result ul');
       $target.empty();
     },
-
     leave: function () {
 
     }
-
   });
 
   var SearchView = Backbone.View.extend({
@@ -265,23 +268,26 @@
       'click a': 'showCategory'
     },
     initialize: function () {
-      this.listenTo(collection, 'sync', function () {
+
+    },
+    enter: function () {
+      this.listenTo(this.collection, 'sync', function () {
+        this.destroy();
         this.renderTagsList();
         this.renderDeviceList();
       });
     },
     renderTagsList: function () {
-      var tags = collection.getCategoryList();
+      var tags = this.collection.getCategoryList();
       var ul = $('#tagsList ul');
       this.render('category', tags, ul);
     },
     renderDeviceList: function () {
-      var devices = collection.getDeviceList();
+      var devices = this.collection.getDeviceList();
       var ul = $('#deviceList ul');
       this.render('device', devices, ul);
     },
     render: function (category, items, ul) {
-      //var $templateString = $('#categoryTemplate').html();
       var $templateString = $('#' + category + 'Template').html();
       var list = _.template($templateString, {obj: items}); // 配列items ⇒ オブジェクトの形にして _.templateに渡す
       ul.append(list);
@@ -291,6 +297,10 @@
     },
     show: function () {
       $(this.el).fadeIn('fast');
+    },
+    destroy: function () {
+      var $target = $(this.el).find('ul');
+      $target.empty();
     },
     showCategory: function (e) {
       var url = e.target.getAttribute('href');
@@ -304,38 +314,19 @@
     events: {
 
     },
-    //
     initialize: function () {
-      this.listenTo(collection, 'sync', function () {
-        this.renderRecent(5);
-        this.renderWord();
-        this.renderCategory();
-        this.renderDevice();
+
+    },
+    enter: function (limit) {
+      this.listenTo(this.collection, 'sync', function () {
+        this.destroy();
+        this.renderRecent(limit);
       });
     },
     renderRecent: function (limit) {
-      var itemRecent = collection.getRecent(limit);
+      var itemRecent = this.collection.getRecent(limit);
       var ul = $('#recentList ul');
       this.render(itemRecent, ul);
-    },
-    renderWord: function (word) {
-      var itemWord = collection.getByWord(word);
-      var ul = $('#byWord ul');
-      this.render(itemWord, ul);
-    },
-    renderCategory: function (categoryName) {
-      var itemCategory = collection.getByCategory(categoryName);
-      var ul = $('#byCategory ul');
-      var h2 = $('#byCategory h2');
-      h2.text(listPage.categoryTitle + ' ' + categoryName);
-      this.render(itemCategory, ul);
-    },
-    renderDevice: function (device) {
-      var itemDevice = collection.getByDevice(device);
-      var ul = $('#byDevice ul');
-      var h2 = $('#byDevice h2');
-      h2.text(listPage.deviceTitle + ' ' + device);
-      this.render(itemDevice, ul);
     },
     render: function (items, ul) {
       var $templateString = $('#resultTemplate').html();
@@ -347,16 +338,22 @@
     },
     show: function () {
       $(this.el).fadeIn('fast');
+    },
+    destroy: function () {
+      var $target = $(this.el).find('ul');
+      $target.empty();
     }
   });
 
 
-  var indexPage = new IndexPageView();
-  var listPage = new ListPageView({ el: $('#listPageView') });
-
-
   ////// YASU
   var Router = Backbone.Router.extend({
+    initialize: function () {
+      this.collection = new Collection();
+      this.categoryListView = new CategoryListView({ el: '#categoryList', collection: this.collection });
+      this.resultView = new ResultView({ el: '#recentList', collection: this.collection });
+      this.listPageView = new ListPageView({ el: '#listPage', collection: this.collection });
+    },
     routes: {
       "": "index",
       "list": "list",
@@ -365,34 +362,38 @@
       //"/list/device_:device": "device",
     },
     index: function () {
-      indexPage.enter();
-      listPage.hide();
-      //this.prev = indexPage;
+      this.resultView.show();
+      this.categoryListView.show();
+      this.categoryListView.enter();
+      this.resultView.enter(5);
+      this.listPageView.hide();
+      this.collection.fetch();
     },
     list: function () {
-      //if(this.prev) this.prev.leave();
-      //listPage.enter();
-      //this.prev = listPage;
+      this.collection.fetch();
+      this.resultView.enter();
+      this.listPageView.hide();
+      this.categoryListView.hide();
     },
     category: function (category) {
-      if (this.prev) this.prev.leave();
-      listPage.enter(category, 'category');
-      listPage.hide( 'byCategory' );
-      this.prev = listPage;
+      this.resultView.hide();
+      this.categoryListView.hide();
+      this.listPageView.enter(category, 'category');
+      this.listPageView.hide();
+      this.listPageView.show('byCategory');
+      this.collection.fetch();
     },
     device: function (device) {
-      if (this.prev) this.prev.leave();
-      listPage.enter(device, 'device');
-      listPage.hide( 'byDevice' );
-      this.prev = listPage;
+      this.resultView.hide();
+      this.categoryListView.hide();
+      this.listPageView.enter(device, 'device');
+      this.listPageView.hide();
+      this.listPageView.show('byDevice');
+      this.collection.fetch();
     }
 
   });
 
-  var collection = new Collection();
-  collection.fetch();
-  var categoryListView = new CategoryListView({ el: $('#categoryList') });
-  var resultView = new ResultView({ el: $('#recentList') });
   var router = new Router();
   Backbone.history.start({ pushState: true });
 
