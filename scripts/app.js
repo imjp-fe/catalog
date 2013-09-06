@@ -153,7 +153,7 @@
 
   });
 
-  var collection = new Collection();
+
 
   // collection.fetch().done(function (res) {
   //   console.log('インクリメンタルサーチ');
@@ -253,8 +253,6 @@
           tmpl = this.$("#searchCandidateTemplate").text(),
           result = collection.getByWord(val),
           str = _.template(tmpl, result);
-
-      //console.log(this.$("input").val(), result.objects);
 
       if (!val || val == "") str = "";
       this.$("ul").html(str);
@@ -362,11 +360,11 @@
       //"/list/device_:device": "device",
     },
     index: function () {
+      this.listPageView.hide();
       this.resultView.show();
       this.categoryListView.show();
       this.categoryListView.enter();
       this.resultView.enter(5);
-      this.listPageView.hide();
       this.collection.fetch();
     },
     list: function () {
@@ -386,16 +384,17 @@
     device: function (device) {
       this.resultView.hide();
       this.categoryListView.hide();
-      this.listPageView.enter(device, 'device');
       this.listPageView.hide();
+      this.listPageView.enter(device, 'device');
       this.listPageView.show('byDevice');
       this.collection.fetch();
     }
 
   });
 
+  var collection = new Collection();
+  collection.fetch();
   var router = new Router();
   Backbone.history.start({ pushState: true });
-
 
 })(window, document, jQuery, Backbone, _);
