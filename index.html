@@ -50,37 +50,34 @@
 <div id="categoryList">
 <div class="category" id="tagsList">
 <h2>Category</h2>
-<ul>
 <script type="text/template" id="categoryTemplate">
 <% _.each(obj, function(i){ %>
 <li><a href="/category/<%= i %>"><%= i %></a></li>
 <% }); %>
 </script>
-</ul>
+<ul></ul>
 </div>
 
 <div class="category" id="deviceList">
 <h2>Device</h2>
-<ul>
 <script type="text/template" id="deviceTemplate">
 <% _.each(obj, function(i){ %>
 <li><a href="/device/<%= i %>"><%= i %></a></li>
 <% }); %>
 </script>
-</ul>
+<ul></ul>
 </div>
 </div>
 
 <div class="category result" id="recentList">
 <h2>New arrived</h2>
-<ul>
 <script type="text/template" id="resultTemplate">
 <% _.each(obj, function(i){ %>
 <li><a href="<%= i.URL %>"><img src="<%= i.thumb %>" alt=""><span class="title"><%= i.title %></span><span
 class="summary"><%= i.summary %></span></a></li>
 <% }); %>
 </script>
-</ul>
+<ul></ul>
 </div>
 
 <!-- リストページのリストは、以下 id 内の ul に出力される -->
