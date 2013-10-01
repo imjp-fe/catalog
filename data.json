@@ -26,7 +26,7 @@
     "URL": "http://tel.ahomegane.com/",
     "title": "Yahoo!JAPANã§ã™ã€‚",
     "summary": "HTML5 Audioã‚¿ã‚°ã‚’ä½¿ã„ã€é›»è©±ãŒã‹ã‹ã£ã¦ããŸã‹ã®ã‚ˆã†ãªè¡¨ç¾ã‚’å®Ÿè£…",
-    "thumb": "/images/img_thumb.gif",
+    "thumb": "/images/watanabe/tel.jpg",
     "creator": "Watanabe Keiichiro",
     "email": "k-watanabe@imjp.co.jp",
     "version": "1.0",
@@ -73,7 +73,7 @@
     "URL": "http://lib.ahomegane.com/component/slider/",
     "title": "Slider",
     "summary": "CoverFlowãªã©CSS3ã‚’ä½¿ã£ãŸç”»åƒã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã€‚",
-    "thumb": "/images/img_thumb.gif",
+    "thumb": "/images/watanabe/slider.jpg",
     "creator": "Watanabe Keiichiro",
     "email": "k-watanabe@imjp.co.jp",
     "version": "1.0",
@@ -93,5 +93,36 @@
 
     ],
     "man-hour": 50
+  },
+  {
+    "URL": "http://",
+    "title": "Web Storage",
+    "summary": "LocalStorage‚É‚æ‚éƒtƒH[ƒ€“ü—Í“à—e•Û‘¶AƒAƒCƒeƒ€‰{———š—ğ•¦",
+    "thumb": "/images/img_thumb.gif",
+    "creator": "Yoko Hayashi",
+    "email": "yhayashi@imjp.co.jp",
+    "version": "1.0",
+    "create date": "Tue Oct 01 14:30:00 2013 +0900",
+    "update date": "",
+    "license": "",
+    "tags": [
+      "JavaScript",
+      "HTML5",
+      "WebStorage"
+    ],
+    "device": [
+      "PC",
+      "sp"
+    ],
+    "browser": [
+      "IE8+",
+      "FireFox 3.5+",
+      "Chrome 3+",
+      "Safari 4+",
+      "Opera 10.5+",
+      "iOS",
+      "android"
+    ],
+    "man-hour": 60
   }
 ]
