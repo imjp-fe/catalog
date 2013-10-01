@@ -22,7 +22,7 @@
           word = (!word) ? word : word.toLowerCase().replace(/^(?:\s*)?(\S+?)(?:\s*)?$/, '$1'),
           reg = new RegExp('\\s*?' + word + '\\s*?');
 
-      var isDuplicate = function (str) {
+      var isDuplicateWords = function (str) {
         for (var i = 0, l = words.length; i < l; i++) {
           if (str.toLowerCase() == words[i].toLowerCase()) {
             return true;
@@ -30,6 +30,15 @@
         }
         return false;
       };
+
+      var isDuplicateModel = function (model) {
+        for (var i = 0, l = objects.length; i < l; i++) {
+          if (objects[i] == model) {
+            return true;
+          }
+        }
+        return false;
+      };      
 
       var isIncludeWords = function (str) {
         for (var i = 0, l = noIncludeWords.length; i < l; i++) {
@@ -42,14 +51,14 @@
 
       var add = function (key, value, model) {
         if (reg.test(value.toLowerCase())) {
-          if (!isDuplicate(value) && isIncludeWords(key)) words.push(value);
-          objects.push(model.toJSON());
+          if (! isDuplicateWords(value) && isIncludeWords(key)) words.push(value);
+          if (! isDuplicateModel(model)) objects.push(model);
         }
       }
 
       for (var i = 0, l = this.models.length; i < l; i++) {
         var pick = this.models[i].pick(scope);
-        for (key in pick) {
+        for (key in pick) {    
           if (_.isArray(pick[key])) {
             for (var j = 0, k = pick[key].length; j < k; j++) {
               add(key, pick[key][j], this.models[i]);
@@ -61,8 +70,11 @@
             continue;
           }
         }
-      }
-      ;
+      };
+
+      _.each(objects, function(v, k, l) {
+        objects[k] = v.toJSON();
+      });
 
       return { objects: objects, words: words };
     },
@@ -152,7 +164,6 @@
     }
 
   });
-
 
 
   // collection.fetch().done(function (res) {
