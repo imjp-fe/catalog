@@ -1,36 +1,58 @@
 [
   {
-    "URL": "http://tk-ota.github.io/sideNavigation/",
-    "title": "Facebook App UI",
-    "summary": "JavaScriptでFacebookアプリのようなUIを再現できるプラグイン、これPCとTABだよ",
+    "URL": "https://github.com/songchihoon/phonegap_test",
+    "title": "Phonegap test",
+    "summary": "Phonegapを利用してhtmlとjsでandroidのネーティブな機能を使う。",
     "thumb": "/images/img_thumb.gif",
-    "creator": "太田智彬",
-    "email": "hoge@hoge.com",
+    "creator": "宋治勳",
+    "email": "c-song@imjp.co.jp",
     "version": "1.0",
     "create date": "Tue Jul 9 11:41:40 2013 +0900",
     "update date": "",
-    "license": "MIT license",
+    "license": "",
     "tags": [
-      "JavaScript"
+      "JavaScript",
+      "phonegap"
     ],
     "device": [
-      "PC",
-      "TAB",
-      ""
+      "ANDROID"
     ],
     "browser": [
-      "Browser",
-      "Chrome"
+
     ],
     "man-hour": 60
   },
   {
+    "URL": "http://tel.ahomegane.com/",
+    "title": "Yahoo!JAPANです。",
+    "summary": "HTML5 Audioタグを使い、電話がかかってきたかのような表現を実装",
+    "thumb": "/images/img_thumb.gif",
+    "creator": "Watanabe Keiichiro",
+    "email": "k-watanabe@imjp.co.jp",
+    "version": "1.0",
+    "create date": "Mon Sep 30 22:30:00 2013 +0900",
+    "update date": "",
+    "license": "",
+    "tags": [
+      "JavaScript",
+      "HTML5",
+      "Audio"
+    ],
+    "device": [
+      "iPhone"
+    ],
+    "browser": [
+
+    ],
+    "man-hour": 20
+  },
+  {
     "URL": "http://tk-ota.github.io/sideNavigation/",
     "title": "Facebook App UI",
-    "summary": "JavaScriptでFacebookアプリのようなUIを再現できるプラグイン、これPCとTABだよ",
+    "summary": "JavaScriptでFacebookアプリのようなUIを再現できるプラグイン",
     "thumb": "/images/img_thumb.gif",
     "creator": "太田智彬",
-    "email": "hoge@hoge.com",
+    "email": "tomoaki-o@imjp.co.jp",
     "version": "1.0",
     "create date": "Tue Jul 9 11:41:40 2013 +0900",
     "update date": "",
@@ -39,14 +61,37 @@
       "JavaScript"
     ],
     "device": [
-      "PC",
-      "TAB",
-      ""
+      "sp"
     ],
     "browser": [
-      "Browser",
-      "Chrome"
+      "safari",
+      "browser"
     ],
     "man-hour": 60
+  },
+  {
+    "URL": "http://lib.ahomegane.com/component/slider/",
+    "title": "Slider",
+    "summary": "CoverFlowなどCSS3を使った画像スライダー。",
+    "thumb": "/images/img_thumb.gif",
+    "creator": "Watanabe Keiichiro",
+    "email": "k-watanabe@imjp.co.jp",
+    "version": "1.0",
+    "create date": "Mon Sep 30 22:30:00 2013 +0900",
+    "update date": "",
+    "license": "",
+    "tags": [
+      "JavaScript",
+      "CSS3"
+    ],
+    "device": [
+      "iPhone",
+      "Android",
+      "iPad"
+    ],
+    "browser": [
+
+    ],
+    "man-hour": 50
   }
 ]

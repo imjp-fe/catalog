@@ -1,16 +1,16 @@
 {
   "URL": "http://tk-ota.github.io/sideNavigation/",
   "title": "Facebook App UI",
-  "summary": "JavaScriptでFacebookアプリのようなUIを再現できるプラグイン、これPCとTABだよ",
+  "summary": "JavaScriptでFacebookアプリのようなUIを再現できるプラグイン",
   "thumb": "/images/img_thumb.gif",
   "creator": "太田智彬",
-  "email": "hoge@hoge.com",
+  "email": "tomoaki-o@imjp.co.jp",
   "version": "1.0",
   "create date": "Tue Jul 9 11:41:40 2013 +0900",
   "update date": "",
   "license": "MIT license",
   "tags": ["JavaScript"],
-  "device": ["PC", "TAB", ""],
-  "browser": ["Browser", "Chrome"],
+  "device": ["sp"],
+  "browser": ["safari", "browser"],
   "man-hour": 60
 }
