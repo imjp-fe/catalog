@@ -2,7 +2,7 @@
   "URL": "http://yokoh9.github.io/webstorage",
   "title": "Web Storage",
   "summary": "LocalStorageによるフォーム入力内容保存、アイテム閲覧履歴表示",
-  "thumb": "/images/img_thumb.gif",
+  "thumb": "images/thumb/yhayashi/webstorage.jpg",
   "creator": "Yoko Hayashi",
   "email": "yhayashi@imjp.co.jp",
   "version": "1.0",
