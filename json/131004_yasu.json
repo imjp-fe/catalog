@@ -1,0 +1,16 @@
+{
+  "URL": "http://pentathrust.net/",
+  "title": "粉雪",
+  "summary": "もうすぐ雪が降るかも",
+  "thumb": "images/thumb/yasu/01.png",
+  "creator": "Kotaro Yasu",
+  "email": "k-yasu@imjp.co.jp",
+  "version": "1.0",
+  "create date": "夜が明ける",
+  "update date": "",
+  "license": "",
+  "tags": ["JavaScript", "createJS"],
+  "device": ["PC", "sp"],
+  "browser": ["IE9", "FireFox", "Chrome", "Safari"],
+  "man-hour": 60
+}
